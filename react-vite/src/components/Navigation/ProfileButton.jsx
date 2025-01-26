@@ -42,17 +42,23 @@ function ProfileButton() {
   return (
     <>
       <button onClick={toggleMenu}>
-        <FaUserCircle />
+        <FaUserCircle className="text-2xl"/>
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-md w-48 text-sm text-gray-700">
+        <ul className="py-2" ref={ulRef}>
           {user ? (
             <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
+              <li className="px-4 py-2 hover:bg-gray-100">{user.first_name} {user.last_name}</li>
+                <li className="px-4 py-2 hover:bg-gray-100">{user.email}</li>
+                <li>
+                  <button
+                    onClick={logout}
+                    className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                  >
+                    Log Out
+                  </button>
+                </li>
             </>
           ) : (
             <>
@@ -69,6 +75,7 @@ function ProfileButton() {
             </>
           )}
         </ul>
+        </div>
       )}
     </>
   );
