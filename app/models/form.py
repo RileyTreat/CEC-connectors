@@ -42,6 +42,8 @@ class Form(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "first_name": self.user.first_name,  
+            "last_name": self.user.last_name,    
             "user_workPhone_3": self.user_workPhone_3,
             "organization_name_4": self.organization_name_4,
             "user_email_5": self.user_email_5,
@@ -65,6 +67,9 @@ class Form(db.Model):
             "callRequest_26": self.callRequest_26,
             "termsAndConditions_27": self.termsAndConditions_27,
             "user_timezone_30": self.user_timezone_30,
+            "service_areas": [area.to_dict() for area in self.service_areas],
+            "eecbg_activities": [activity.to_dict() for activity in self.eecbg_activities],
+            "desired_roles": [role.to_dict() for role in self.desired_roles],
             "createdAt": self.createdAt,
             "updatedAt": self.updatedAt
         }
