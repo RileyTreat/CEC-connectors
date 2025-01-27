@@ -3,6 +3,8 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import AboutPage from '../components/AboutPage'
 import DirectoryPage from '../components/DirectoryPage';
+import ServiceAreasPage from '../components/ServiceAreasPage'
+import ConnectorProfilePage from '../components/ConnectorProfilePage'
 import ResourcesPage from '../components/ResourcesPage'
 import ContactPage from '../components/ContactPage'
 import Layout from './Layout';
@@ -30,6 +32,14 @@ export const router = createBrowserRouter([
       {
         path: "directory",
         element: <DirectoryPage />,  
+      },
+      {
+        path: "/connector/:id",  
+        element: <ConnectorProfilePage />,  
+      },
+      {
+        path: "serviceAreas",
+        element: <ServiceAreasPage />,  
       },
       {
         path: "resources",

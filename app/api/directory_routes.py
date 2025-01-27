@@ -6,31 +6,19 @@ directory_routes = Blueprint('directory', __name__)
 # Get all connectors (Forms) with their related data and user details
 @directory_routes.route('/connectors', methods=['GET'])
 def get_all_connectors():
-    # Optional query params for filtering
-    location_filter = request.args.getlist('location')  # This could be a list of states/regions
-    activity_filter = request.args.getlist('activity')  # This could be a list of EECBG activities
-    
-    # Query forms (connectors)
+    location_filter = request.args.getlist('location')  # List of states/regions
+
     query = Form.query
     
-    # Filter by location if provided
     if location_filter:
+        # Join the ServiceArea table and filter based on the selected location
         query = query.join(ServiceArea).filter(ServiceArea.form_id == Form.id)
-        query = query.filter(ServiceArea.global_area == True | 
-                             ServiceArea.national == True |
-                             ServiceArea.__dict__[location_filter] == True)
-
-    # Filter by activity if provided
-    if activity_filter:
-        query = query.join(EECBGActivity).filter(EECBGActivity.form_id == Form.id)
-        for activity in activity_filter:
-            query = query.filter(getattr(EECBGActivity, activity) == True)
+        for location in location_filter:
+            query = query.filter(getattr(ServiceArea, location) == True)  # Filter by location
     
-    # Get filtered results
-    forms = query.all()
+    connectors = query.all()
 
-    # Return all connectors with related data and user info
-    return jsonify([form.to_dict() for form in forms])
+    return jsonify([form.to_dict() for form in connectors])
 
 # Search for connectors
 @directory_routes.route('/search', methods=['GET'])
@@ -62,15 +50,16 @@ def get_connector_by_id(id):
 # Get all available locations (States, Territories) for filtering
 @directory_routes.route('/locations', methods=['GET'])
 def get_all_locations():
-    # Retrieve distinct service areas (states, territories, etc.)
-    service_areas = ServiceArea.query.distinct().all()
+    # Retrieve distinct service areas (states, territories, etc.) associated with connectors
+    service_areas = ServiceArea.query.filter(ServiceArea.form_id.isnot(None)).distinct().all()
     locations = []
-    
+
     # Loop through the service areas and gather all possible locations
     for area in service_areas:
         locations.extend([column for column in ServiceArea.__table__.columns.keys() if getattr(area, column)])
     
     return jsonify(list(set(locations)))  # Return unique list
+
 
 
 # Get all available EECBG activities for filtering
@@ -109,3 +98,14 @@ def filter_connectors():
     filtered_forms = query.all()
 
     return jsonify([form.to_dict() for form in filtered_forms])
+
+# Get connectors by service area
+@directory_routes.route('/connectors-by-area', methods=['GET'])
+def get_connectors_by_area():
+    # Get the selected service area (e.g., 'alabama', 'arizona', etc.)
+    area = request.args.get('area')
+
+    # Query connectors that have the selected service area marked as True
+    connectors = Form.query.join(ServiceArea).filter(getattr(ServiceArea, area) == True).all()
+
+    return jsonify([connector.to_dict() for connector in connectors])
