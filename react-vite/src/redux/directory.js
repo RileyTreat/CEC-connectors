@@ -1,6 +1,7 @@
 const SET_LOCATIONS = 'directory/setLocations';
 const SET_CONNECTORS = 'directory/setConnectors';
 const SET_CONNECTOR = 'directory/setConnector';
+const SET_EECBG_ACTIVITIES = 'directory/setEECBGActivities';
 
 const setLocations = (locations) => ({
   type: SET_LOCATIONS,
@@ -15,6 +16,11 @@ const setConnectors = (connectors) => ({
 const setConnector = (connector) => ({
     type: SET_CONNECTOR,
     payload: connector
+  });
+
+  const setEECBGActivities = (activities) => ({
+    type: SET_EECBG_ACTIVITIES,
+    payload: activities,
   });
 
 export const fetchLocations = () => async (dispatch) => {
@@ -35,10 +41,23 @@ export const fetchConnectorById = (id) => async (dispatch) => {
     dispatch(setConnector(connector));
   };
 
+  export const fetchConnectorsByActivity = (activity) => async (dispatch) => {
+    const response = await fetch(`/api/directory/connectors?activity=${activity}`);
+    const connectors = await response.json();
+    dispatch(setConnectors(connectors));
+  };
+
+  export const fetchEECBGActivities = () => async (dispatch) => {
+    const response = await fetch('/api/directory/activities');  
+    const activities = await response.json();
+    dispatch(setEECBGActivities(activities));  
+  };
+
 const initialState = {
   locations: [],
   connectors: [],
   connector: null,
+  eecbgActivities: []
 };
 
 const directoryReducer = (state = initialState, action) => {
@@ -49,6 +68,8 @@ const directoryReducer = (state = initialState, action) => {
       return { ...state, connectors: action.payload };
     case SET_CONNECTOR:
       return { ...state, connector: action.payload };
+    case SET_EECBG_ACTIVITIES:
+        return { ...state, eecbgActivities: action.payload };
     default:
       return state;
   }

@@ -4,10 +4,12 @@ import SignupFormPage from '../components/SignupFormPage';
 import AboutPage from '../components/AboutPage'
 import DirectoryPage from '../components/DirectoryPage';
 import ServiceAreasPage from '../components/ServiceAreasPage'
+import TypesOfSupportPage from '../components/TypesOfSupportPage';
 import ConnectorProfilePage from '../components/ConnectorProfilePage'
 import ResourcesPage from '../components/ResourcesPage'
 import ContactPage from '../components/ContactPage'
 import Layout from './Layout';
+
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "serviceAreas",
         element: <ServiceAreasPage />,  
+      },
+      {
+        path: "/support",
+        element: <TypesOfSupportPage />,  
       },
       {
         path: "resources",

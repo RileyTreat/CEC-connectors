@@ -16,9 +16,9 @@ const ConnectorsProfilePage = () => {
     return <div>Loading...</div>;
   }
 
-  useEffect(() => {
-    console.log(connector); // Log to check the data structure
-  }, [connector]);
+  // useEffect(() => {
+  //   console.log(connector); // Log to check the data structure
+  // }, [connector]);
 
   return (
     <div className="container mx-auto">
