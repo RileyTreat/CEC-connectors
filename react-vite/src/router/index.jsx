@@ -9,6 +9,7 @@ import ConnectorProfilePage from '../components/ConnectorProfilePage'
 import ResourcesPage from '../components/ResourcesPage'
 import ContactPage from '../components/ContactPage'
 import Layout from './Layout';
+import CECForm from '../components/CECForm/CECForm';
 
 
 export const router = createBrowserRouter([
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
       {
         path: "/support",
         element: <TypesOfSupportPage />,  
+      },
+      {
+        path: "/CECForm",
+        element: <CECForm />,  
       },
       {
         path: "resources",
