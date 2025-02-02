@@ -2,6 +2,7 @@ const SET_LOCATIONS = 'directory/setLocations';
 const SET_CONNECTORS = 'directory/setConnectors';
 const SET_CONNECTOR = 'directory/setConnector';
 const SET_EECBG_ACTIVITIES = 'directory/setEECBGActivities';
+const SET_USER_CONNECTOR = 'directory/setUserConnector';
 
 const setLocations = (locations) => ({
   type: SET_LOCATIONS,
@@ -21,6 +22,11 @@ const setConnector = (connector) => ({
   const setEECBGActivities = (activities) => ({
     type: SET_EECBG_ACTIVITIES,
     payload: activities,
+  });
+
+  const setUserConnector = (connector) => ({
+    type: SET_USER_CONNECTOR,
+    payload: connector,
   });
 
 export const fetchLocations = () => async (dispatch) => {
@@ -53,6 +59,18 @@ export const fetchConnectorById = (id) => async (dispatch) => {
     dispatch(setEECBGActivities(activities));  
   };
 
+  // Action to fetch the user's specific connector data
+  export const fetchUserConnector = (userId) => async (dispatch, getState) => {
+    const response = await fetch(`/api/directory/connectors/${userId}`);  // Fetch the user's connector
+    const userConnector = await response.json();
+    
+    if (response.ok) {
+        dispatch(setUserConnector(userConnector));  // Set the data into the Redux store
+    } else {
+        console.error('Failed to fetch user connector');
+    }
+  };
+
 const initialState = {
   locations: [],
   connectors: [],
@@ -70,6 +88,8 @@ const directoryReducer = (state = initialState, action) => {
       return { ...state, connector: action.payload };
     case SET_EECBG_ACTIVITIES:
         return { ...state, eecbgActivities: action.payload };
+    case SET_USER_CONNECTOR:
+      return { ...state, userConnector: action.payload };
     default:
       return state;
   }

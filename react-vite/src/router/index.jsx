@@ -10,6 +10,7 @@ import ResourcesPage from '../components/ResourcesPage'
 import ContactPage from '../components/ContactPage'
 import Layout from './Layout';
 import CECForm from '../components/CECForm/CECForm';
+import ManagePage from '../components/ManagePage';
 
 
 export const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />,
+      },
+      {
+        path: "manage",
+        element: <ManagePage />,  
       },
       {
         path: "about",
