@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -6,6 +7,7 @@ import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -58,7 +60,7 @@ function LoginFormModal() {
         </label>
         {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
       </div>
-        <button 
+        <button onClick={() => navigate("/about")}
           type="submit"
           className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
