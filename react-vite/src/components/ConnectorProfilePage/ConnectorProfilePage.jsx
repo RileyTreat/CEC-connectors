@@ -6,10 +6,10 @@ import { fetchConnectorById } from '../../redux/directory';
 const ConnectorsProfilePage = () => {
   const { id } = useParams(); // Getting the connector ID from URL params
   const dispatch = useDispatch();
-  const connector = useSelector(state => state.directory.connectors.find(connector => connector.id === parseInt(id)));
+  const connector = useSelector(state => state.directory.connector) //s.find(connector => connector.id === parseInt(id)));
   
   useEffect(() => {
-    dispatch(fetchConnectorById(id)); // Fetch the connector details based on ID when component mounts
+    dispatch(fetchConnectorById(id)); 
   }, [dispatch, id]);
 
   if (!connector) {
@@ -53,7 +53,6 @@ const ConnectorsProfilePage = () => {
             return activityCategories.length > 0 ? (
               <li key={idx} className="ml-4">
                 {activityCategories.map((category, index) => {
-                  // Optionally, you can map category keys to category names for display
                   const categoryNames = {
                     category_1_strategy_development: "Strategy Development and Implementation",
                     category_2_retaining_consulting: "Retaining Technical Consulting Services",
