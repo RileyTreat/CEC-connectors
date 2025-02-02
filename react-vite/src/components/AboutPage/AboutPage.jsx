@@ -4,6 +4,12 @@ import React from 'react';
 const AboutPage = () => {
   return (
     <div className="p-8">
+      <img
+      src="/logo-name.jpg"
+      alt="Logo"
+      className="mx-auto my-4"
+      />
+
       <h1 className="text-3xl font-bold mb-4">About the DOE Community Energy Connectors Program</h1>
 
       <section className="mb-6">

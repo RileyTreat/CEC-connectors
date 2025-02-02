@@ -4,6 +4,12 @@ import React from 'react';
 const ContactPage = () => {
   return (
     <div className="p-8">
+        <img
+        src="/logo-name.jpg"
+        alt="Logo"
+        className="mx-auto my-4"
+        />
+
       <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
 
       <section className="mb-6">

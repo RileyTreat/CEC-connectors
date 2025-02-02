@@ -65,11 +65,12 @@ def seed_users():
     ]
 
     for user_data in users:
+         
         user = User(
             first_name=user_data["first_name"],
             last_name=user_data["last_name"],
             email=user_data["email"],
-            hashed_password=user_data["hashed_password"]
+            password=user_data["hashed_password"]
         )
         db.session.add(user)
 
