@@ -11,6 +11,7 @@ import ContactPage from '../components/ContactPage'
 import Layout from './Layout';
 import CECForm from '../components/CECForm/CECForm';
 import ManagePage from '../components/ManagePage';
+import CECUpdateForm from '../components/CECUpdateForm';
 
 
 export const router = createBrowserRouter([
@@ -56,6 +57,10 @@ export const router = createBrowserRouter([
       {
         path: "/CECForm",
         element: <CECForm />,  
+      },
+      {
+        path: "/CECForm/update",
+        element: <CECUpdateForm />,  
       },
       {
         path: "resources",

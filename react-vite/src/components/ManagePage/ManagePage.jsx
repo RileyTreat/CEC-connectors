@@ -23,7 +23,7 @@ function ManagePage() {
     console.log("User Connector: ", userConnector);
 
     const handleUpdateForm = () => {
-        navigate('/CECform');
+        navigate('/CECform/update');
     };
     
     const handleTileClick = ()=> {

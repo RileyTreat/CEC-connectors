@@ -71,6 +71,33 @@ export const fetchConnectorById = (id) => async (dispatch) => {
     }
   };
 
+  export const updateConnector = (id, updatedData) => async (dispatch) => {
+    try {
+      // Make the PUT request to update the connector form
+      const response = await fetch(`/api/form/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      });
+  
+      // If the request was successful, dispatch the updated connector data to Redux
+      if (response.ok) {
+        const updatedConnector = await response.json();
+        dispatch(setConnector(updatedConnector));  // You already have the setConnector action defined
+        return updatedConnector;  // Return the updated connector if you need it for further use
+      } else {
+        const errorData = await response.json();
+        console.error('Error updating connector:', errorData);
+        throw new Error(errorData.error || 'Failed to update connector');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  
+
 const initialState = {
   locations: [],
   connectors: [],
