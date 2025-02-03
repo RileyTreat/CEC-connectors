@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 const DirectoryPage = () => {
     return (
         <div className="flex flex-col items-center space-y-8 py-8">
+                <img
+      src="/logo-name.jpg"
+      alt="Logo"
+      className="mx-auto my-4"
+      />
         {/* Main Title */}
-        <h1 className="text-4xl font-bold">CEC Directory</h1>
+        <h1 className="text-4xl font-bold">Directory</h1>
   
         {/* Subtitle */}
         <h2 className="text-2xl font-semibold">Please choose from one of the three options to help connect you to one of our Community Engergy Connectors.</h2>

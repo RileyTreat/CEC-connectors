@@ -12,6 +12,7 @@ import Layout from './Layout';
 import CECForm from '../components/CECForm/CECForm';
 import ManagePage from '../components/ManagePage';
 import CECUpdateForm from '../components/CECUpdateForm';
+import HomePage from '../components//HomePage';
 
 
 export const router = createBrowserRouter([
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <HomePage />,
       },
       {
         path: "login",

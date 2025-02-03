@@ -43,14 +43,16 @@ function ProfileButton() {
     navigate('/');
   };
 
+
   return (
     <>
       <button onClick={toggleMenu}>
         <FaUserCircle className="text-2xl"/>
       </button>
       {showMenu && (
-        <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-md w-48 text-sm text-gray-700">
-        <ul className="py-2" ref={ulRef}>
+        <div className="absolute right-0 mt-2 shadow-lg rounded-md w-48 text-sm text-gray-700 bg-white bg-white z-50"
+        ref={ulRef}>
+        <ul className="py-2" >
           {user ? (
             <>
               <li className="px-4 py-2 hover:bg-gray-100">{user.first_name} {user.last_name}</li>

@@ -16,6 +16,7 @@ const AboutPage = () => {
         <h2 className="text-2xl font-semibold">Mission</h2>
         <p>
           The mission of the DOE Community Energy Connectors Program is to build capacity for local communities in their clean energy development efforts.
+          The Community Energy Connectors (CEC) initiative, led by the U.S. Department of Energy's Office of State and Community Energy Programs (SCEP), aims to establish a network of regional partner organizations to provide technical assistance and capacity-building support to communities. The mission of CEC is to strengthen local clean energy support systems by engaging various stakeholders—including utilities, community-based organizations, academic institutions, industry, and economic development agencies—to plan, implement, and scale clean energy projects. Additionally, CEC seeks to build awareness, coordination, collaboration, and capacity among stakeholders through in-person and virtual convenings, workshops, and training sessions. The initiative also focuses on identifying and addressing place-based challenges, opportunities, and priorities through direct technical assistance and community engagement, supporting communities in transforming clean energy and economic development goals into "shovel-ready" projects, and ensuring that governments are set up for future success after completing their Energy Efficiency and Conservation Block Grant (EECBG) Program projects.
         </p>
       </section>
 
