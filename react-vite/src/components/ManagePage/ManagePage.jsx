@@ -2,6 +2,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserConnector } from '../../redux/directory';
+import OpenModalButton from "../OpenModalButton";
+import DeleteModal from "../DeleteModal";
 
 function ManagePage() {
     const dispatch = useDispatch();
@@ -22,12 +24,15 @@ function ManagePage() {
     // Debugging: Log the data to check if it's being correctly set
     console.log("User Connector: ", userConnector);
 
-    const handleUpdateForm = () => {
-        navigate('/CECform/update');
-    };
+    // const handleUpdateForm = () => {
+    //     navigate('/CECform/update');
+    // };
     
-    const handleTileClick = ()=> {
-        navigate(`/connector/${userId}`)
+    const handleTileClick = (e)=> {
+        if (e.target.closest('button')) {
+            return; // Stop navigation if delete button is clicked
+        }
+        navigate(`/connector/${userId}`);
     }
 
     // If no userConnector data exists yet, show loading message
@@ -63,16 +68,33 @@ function ManagePage() {
 
             <div className="mt-4 flex gap-4">
                 <button 
-                    onClick={handleUpdateForm}
+                    // onClick={handleUpdateForm}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/CECform/update`);
+                      }}
                     className="btn btn-primary px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition-all"
                     >
                     Update Form
                 </button>
-                <button 
+                {/* <button 
                     className="btn btn-danger px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition-all"   
                     >
                     Delete Form
-                </button>
+                </button> */}
+                <OpenModalButton
+                  buttonText="Delete Form "
+                  className="btn btn-danger px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition-all"
+                  onClick={(e) => {
+                    e.stopPropagation();                 
+                  }}
+                  modalComponent={
+                    <DeleteModal
+                      itemType=""
+                      //onConfirm={() => handleDeleteArtifact(artifact.id)}
+                    />
+                }
+                />
             </div>
         </div>
     </div>
