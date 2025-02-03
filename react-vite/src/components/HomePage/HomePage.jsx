@@ -13,7 +13,9 @@ const HomePage = () => {
 
 
   return (
-    <div className="relative h-screen bg-cover bg-center bg-fixed opacity-80" style={{ backgroundImage: "url('/earth.jpg')" }}>
+    <div className="relative h-screen bg-cover bg-center bg-fixed " style={{ backgroundImage: "url('/earth.jpg')" }}>
+      <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+      
       {/* Content goes here */}
       <div className="absolute top-1/4 left-1/2 transform -translate-x-1/2 text-white text-center w-full">
         <img src="/logo-name.jpg" alt="CEC Logo" className="mx-auto mb-8 rounded-lg" />
