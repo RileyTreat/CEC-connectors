@@ -74,7 +74,7 @@ function  CECForm() {
               value={formData.organization_name_4}
               onChange={handleChange}
               placeholder="Organization"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -87,7 +87,7 @@ function  CECForm() {
               value={formData.user_jobTitle_7}
               onChange={handleChange}
               placeholder="Director, Project Manager, etc."
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -100,7 +100,7 @@ function  CECForm() {
               value={formData.user_firstName_3}
               onChange={handleChange}
               placeholder="First Name"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -113,7 +113,7 @@ function  CECForm() {
               value={formData.user_lastName_3}
               onChange={handleChange}
               placeholder="Last Name"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -126,7 +126,7 @@ function  CECForm() {
               value={formData.user_workPhone_3}
               onChange={handleChange}
               placeholder="Work Phone"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -138,7 +138,7 @@ function  CECForm() {
               name="user_mobilePhone_8"
               value={formData.user_mobilePhone_8}
               onChange={handleChange}
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
             />
           </label>
 
@@ -150,7 +150,7 @@ function  CECForm() {
               value={formData.user_email_5}
               onChange={handleChange}
               placeholder="Email"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               required
             />
           </label>
@@ -163,7 +163,7 @@ function  CECForm() {
               value={formData.organization_website_6}
               onChange={handleChange}
               placeholder="Web URL goes here"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
             />
           </label>
         </section>
@@ -236,7 +236,7 @@ function  CECForm() {
               value={formData.EECBGExperience_11}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -248,7 +248,7 @@ function  CECForm() {
               value={formData.publicTaExperience_12}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -260,7 +260,7 @@ function  CECForm() {
               value={formData.inPersonExperience_13}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -272,7 +272,7 @@ function  CECForm() {
               value={formData.virtualExperience_14}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -289,7 +289,7 @@ function  CECForm() {
               value={formData.underservedExperience_15}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -301,7 +301,7 @@ function  CECForm() {
               value={formData.underservedPlan_16}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -318,7 +318,7 @@ function  CECForm() {
               value={formData.federalGrantExperience_17}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -330,7 +330,7 @@ function  CECForm() {
               value={formData.collaborationExperience_18}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -342,7 +342,7 @@ function  CECForm() {
               value={formData.uniqueResorces_19}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -359,7 +359,7 @@ function  CECForm() {
               value={formData.workplanDeliverables_20}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -371,7 +371,7 @@ function  CECForm() {
               value={formData.milestoneTimelines_21}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
@@ -383,7 +383,7 @@ function  CECForm() {
               value={formData.keyMetrics_22}
               onChange={handleChange}
               placeholder="If none, enter NA"
-              className="mt-2 p-2 border rounded-md w-full"
+              className="mt-2 p-2 border rounded-md w-full text-[#003366]"
               rows="3"
             />
           </label>
