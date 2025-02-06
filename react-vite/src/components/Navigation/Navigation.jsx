@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
+import DirectoryDropdown from "./DirectoryDropdown";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import "./Navigation.css";
 
 function Navigation() {
@@ -8,6 +10,7 @@ function Navigation() {
 
   // Toggle the dropdown menu
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const closeDropdown = () => setDropdownOpen(false);
 
   return (
     <nav className="bg-white p-4 shadow-md">
@@ -25,12 +28,19 @@ function Navigation() {
 
         {/* Links in the middle */}
         <div className="space-x-8 hidden md:flex">
-          <NavLink to="/about" className="text-gray-800 hover:text-blue-500">
+          <NavLink to="/about" className="text-gray-800 hover:text-blue-500 ">
             About
           </NavLink>
-          <NavLink to="/directory" className="text-gray-800 hover:text-blue-500">
-            Directory
-          </NavLink>
+          <div className="relative">
+            <button
+              className="text-gray-800 hover:text-blue-500 flex items-center space-x-1"
+              onClick={toggleDropdown}
+            >
+              Directory<MdKeyboardArrowDown className="ml-1 text-sm" />
+            </button>
+            {/* Render dropdown when the state is open */}
+            {dropdownOpen && <DirectoryDropdown closeDropdown={closeDropdown}/>}
+          </div>
           <NavLink to="/resources" className="text-gray-800 hover:text-blue-500">
             Resources
           </NavLink>
