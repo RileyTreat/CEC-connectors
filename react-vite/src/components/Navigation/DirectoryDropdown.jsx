@@ -16,7 +16,7 @@ const DirectoryDropdown = ({closeDropdown}) => {
     
       <div
           className="block px-4 py-2 text-gray-800 hover:bg-blue-100 cursor-pointer"
-          onClick={() => handleLinkClick("/map")}
+          //onClick={() => handleLinkClick("/map")}
         >
           <p className="font-bold">Interactive Map</p>
           <p className="text-sm">- Coming soon</p>
