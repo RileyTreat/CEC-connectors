@@ -13,7 +13,7 @@ const HomePage = () => {
 
 
   return (
-    <div className="relative h-screen bg-cover bg-center bg-fixed " style={{ backgroundImage: "url('/earth.jpg')" }}>
+    <div className="relative h-screen bg-cover bg-center bg-fixed " style={{ backgroundImage: "url('/bulb.jpg')" }}>
       <div className="absolute inset-0 bg-black bg-opacity-30"></div>
       
       {/* Content goes here */}

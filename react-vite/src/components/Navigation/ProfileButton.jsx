@@ -80,11 +80,14 @@ function ProfileButton() {
                 itemText="Log In"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
+                className="block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300"
               />
               <OpenModalMenuItem
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
+                className="block px-6 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 transition duration-300"
+                
               />
             </>
           )}
