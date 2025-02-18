@@ -16,7 +16,7 @@ const AboutPage = () => {
 
       {/* Mission Section */}
       <section className="mb-6">
-        <div className="bg-blue-700 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Mission</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">
@@ -29,7 +29,7 @@ const AboutPage = () => {
 
       {/* Vision Section */}
       <section className="mb-6">
-        <div className="bg-green-600 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-right">Vision</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">
@@ -41,7 +41,7 @@ const AboutPage = () => {
 
       {/* Purpose Section */}
       <section className="mb-6">
-        <div className="bg-blue-600 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Purpose</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">
@@ -53,7 +53,7 @@ const AboutPage = () => {
 
       {/* Overview Section */}
       <section className="mb-6">
-        <div className="bg-green-600 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-right">Overview of the DOE Community Energy Connectors Program</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">
@@ -65,7 +65,7 @@ const AboutPage = () => {
 
       {/* Supporting Section */}
       <section className="mb-6">
-        <div className="bg-blue-600 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4">Supporting Regional Clean Energy and Economic Development</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">
@@ -77,7 +77,7 @@ const AboutPage = () => {
 
       {/* The Role Section */}
       <section className="mb-6">
-        <div className="bg-green-600 bg-opacity-80 text-white p-6 rounded-lg shadow-md">
+        <div className=" bg-opacity-80 text-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold mb-4 text-right">The Role of Energy Connectors in Local Communities</h2>
           <div className="bg-white p-4 rounded-lg shadow-md">
             <p class="text-black">

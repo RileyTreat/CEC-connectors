@@ -16,7 +16,7 @@ const ResourcesPage = () => {
       <h1 className="text-3xl font-bold text-center mb-6 text-white">Resources for Clean Energy Development</h1>
 
       {/* Case Studies and Success Stories */}
-      <section className="mb-8 bg-blue-700 p-6 rounded-lg shadow-lg">
+      <section className="mb-8  p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold  text-white mb-4">Case Studies and Success Stories</h2>
 
         <div className="bg-white p-4 rounded-lg mb-4">
@@ -31,7 +31,7 @@ const ResourcesPage = () => {
       </section>
 
       {/* Technical Assistance Programs */}
-      <section className="mb-8 bg-green-700 p-6  rounded-lg shadow-lg">
+      <section className="mb-8  p-6  rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold text-white mb-4">Other Technical Assistance Programs for Clean Energy Development</h2>
 
         <div className="bg-white p-4 rounded-lg mb-4">
