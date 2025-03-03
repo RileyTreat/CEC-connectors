@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserConnector } from '../../redux/directory';
+import { fetchUserConnector, deleteConnector } from '../../redux/directory';
 import OpenModalButton from "../OpenModalButton";
 import DeleteModal from "../DeleteModal";
 
@@ -21,12 +21,31 @@ function ManagePage() {
         }
     }, [dispatch, userId]);  // Re-run the effect if userId changes
 
-    // Debugging: Log the data to check if it's being correctly set
-    //console.log("User Connector: ", userConnector);
-
-    // const handleUpdateForm = () => {
-    //     navigate('/CECform/update');
-    // };
+    const handleDeleteForm = async () => {
+        if (!userConnector) {
+            console.error("No form to delete");
+            return;
+        }
+        
+        try {
+            console.log("Deleting form with ID:", userConnector.id);
+            const result = await dispatch(deleteConnector(userConnector.id));
+            
+            if (result.success) {
+                console.log("Form deleted successfully");
+                // Stay on the manage page and show a success message
+                alert("Form deleted successfully");
+                // Refresh the user connector data to show the updated state
+                dispatch(fetchUserConnector(userId));
+            } else {
+                console.error("Failed to delete form:", result.error);
+                alert("Failed to delete form: " + result.error);
+            }
+        } catch (error) {
+            console.error("Error deleting form:", error);
+            alert("An error occurred while deleting the form");
+        }
+    };
     
     const handleTileClick = (e)=> {
         if (e.target.closest('button')) {
@@ -74,7 +93,6 @@ function ManagePage() {
 
             <div className="mt-4 flex gap-4">
                 <button 
-                    // onClick={handleUpdateForm}
                     onClick={(e) => {
                         e.stopPropagation();
                         navigate(`/CECform/update`);
@@ -83,21 +101,16 @@ function ManagePage() {
                     >
                     Update Form
                 </button>
-                {/* <button 
-                    className="btn btn-danger px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition-all"   
-                    >
-                    Delete Form
-                </button> */}
                 <OpenModalButton
-                  buttonText="Delete Form "
+                  buttonText="Delete Form"
                   className="btn btn-danger px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700 transition-all"
                   onClick={(e) => {
                     e.stopPropagation();                 
                   }}
                   modalComponent={
                     <DeleteModal
-                      itemType=""
-                      //onConfirm={() => handleDeleteArtifact(artifact.id)}
+                      itemType="CEC Partner"
+                      onConfirm={handleDeleteForm}
                     />
                 }
                 />

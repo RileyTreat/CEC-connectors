@@ -5,6 +5,7 @@ const SET_CONNECTOR = 'directory/setConnector';
 const SET_EECBG_ACTIVITIES = 'directory/setEECBGActivities';
 const SET_USER_CONNECTOR = 'directory/setUserConnector';
 const CREATE_CONNECTOR = 'directory/createConnector';
+const REMOVE_CONNECTOR = 'directory/removeConnector';
 
 
 
@@ -32,6 +33,11 @@ const setConnector = (connector) => ({
     type: SET_USER_CONNECTOR,
     payload: connector,
   });
+
+const removeConnector = (formId) => ({
+  type: REMOVE_CONNECTOR,
+  payload: formId,
+});
 
 
 
@@ -99,7 +105,36 @@ export const fetchConnectorById = (id) => async (dispatch) => {
         throw new Error(errorData.error || 'Failed to update connector');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Exception when updating connector:', error);
+      throw error;
+    }
+  };
+
+  export const deleteConnector = (formId) => async (dispatch) => {
+    try {
+      console.log(`Attempting to delete form with ID: ${formId}`);
+      
+      const response = await csrfFetch(`/api/form/${formId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Delete response:', data);
+        dispatch(removeConnector(formId));
+        return { success: true, message: data.message };
+      } else {
+        const errorData = await response.json();
+        console.error('Error deleting form:', errorData);
+        return { success: false, error: errorData.error || 'Failed to delete form' };
+      }
+    } catch (error) {
+      console.error('Exception when deleting form:', error);
+      return { success: false, error: error.message || 'An unexpected error occurred' };
     }
   };
 
@@ -209,10 +244,18 @@ const directoryReducer = (state = initialState, action) => {
         return { ...state, eecbgActivities: action.payload };
     case SET_USER_CONNECTOR:
       return { ...state, userConnector: action.payload };
-    case SET_USER_CONNECTOR:
-        return { ...state, userConnector: action.payload };
     case CREATE_CONNECTOR:
         return { ...state, createdConnector: action.payload };
+    case REMOVE_CONNECTOR:
+      // If the deleted connector is the current userConnector, set it to null
+      if (state.userConnector && state.userConnector.id === action.payload) {
+        return { ...state, userConnector: null };
+      }
+      // Filter out the deleted connector from the connectors array
+      return {
+        ...state,
+        connectors: state.connectors.filter(connector => connector.id !== action.payload)
+      };
     default:
       return state;
   }
