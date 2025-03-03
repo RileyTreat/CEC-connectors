@@ -3,7 +3,7 @@ import React from 'react';
 
 const AboutPage = () => {
   return (
-    <div className="relative p-8 bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/bulb.jpg')" }}>
+    <div className=" p-8 bg-cover bg-center bg-fixed" style={{ backgroundImage: "url('/bulb.jpg')" }}>
 
     {/* Content Wrapper */}
     <div className="relative z-10 max-w-5xl mx-auto bg-black p-8 rounded-lg shadow-lg bg-opacity-60">

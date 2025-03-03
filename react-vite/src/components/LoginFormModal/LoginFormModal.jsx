@@ -31,7 +31,7 @@ function LoginFormModal() {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <div className="w-full max-w-sm mx-auto bg-white p-6 rounded-lg shadow-lg z-[1001] relative">
       <h1 className="text-2xl font-semibold text-center mb-4">Log In</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
       <div>
