@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from 'react-router-dom'; // To access state passed by navigate
 import { useDispatch, useSelector } from 'react-redux';
-import { updateConnector } from '../../redux/directory'; // Assuming you have this action
+import { updateConnector } from '../../redux/directory'; 
+//import { updateCecForm, setCecFormData } from '../../redux/directory';
 
 function CECUpdateForm() {
   const location = useLocation();  // Access passed data from ManagePage
@@ -75,7 +76,7 @@ function CECUpdateForm() {
         user_timezone_30: connector.user_timezone_30 || "",
         desired_roles: connector.desired_roles || [],
       });
-      console.log(connector.service_areas);
+       console.log(connector.service_areas);
     }
   }, [connector]); // Re-run when connector change
 
@@ -107,10 +108,10 @@ function CECUpdateForm() {
 
     // Prepare the updated form data from the form state
     const updatedFormData = {
-        ...formData,  // Assuming formData contains all updated information
+        ...formData, 
     };
     // Dispatch the update action to Redux or send the updated data to your backend
-    dispatch(updateConnector(connectorId, updatedFormDataformData)); // Assuming this is the action to update
+    dispatch(updateConnector(connectorId, updatedFormDataformData)); 
 
     // Navigate to the connector profile page after update
     navigate(`/connector/${connectorId}`); // Redirect to the connector's profile page

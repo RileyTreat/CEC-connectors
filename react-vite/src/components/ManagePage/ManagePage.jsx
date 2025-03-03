@@ -22,7 +22,7 @@ function ManagePage() {
     }, [dispatch, userId]);  // Re-run the effect if userId changes
 
     // Debugging: Log the data to check if it's being correctly set
-    console.log("User Connector: ", userConnector);
+    //console.log("User Connector: ", userConnector);
 
     // const handleUpdateForm = () => {
     //     navigate('/CECform/update');
@@ -36,9 +36,9 @@ function ManagePage() {
     }
 
     // If no userConnector data exists yet, show loading message
-    if (!userConnector) {
-        return <div>Loading...</div>;
-    }
+    // if (!userConnector) {
+    //     return <div>Loading...</div>;
+    // }
 
     return(
     <div>
@@ -59,12 +59,18 @@ function ManagePage() {
         </div>
 
         <div onClick={handleTileClick} className="organization-tile mt-8 p-6 border-2 border-gray-300 rounded-lg hover:shadow-lg hover:border-blue-500 transition-all inline-block px-4">
+        {userConnector ? (
+    <>
             <h3 className="text-xl font-semibold">{userConnector.organization_name_4}</h3>
             <p className="text-gray-600">{userConnector.organization_website_6}</p>
             <p className="text-gray-600">{userConnector.user_jobTitle_7}</p>
             <p className="text-gray-600">{userConnector.user_email_5}</p>
             <p className="text-gray-600">{userConnector.user_workPhone_3}</p>
             <p className="text-gray-600">{userConnector.user_timezone_30}</p>
+            </>
+  ) : (
+    <p className="text-gray-600">No organization data available. Please fill out the form.</p>
+  )}
 
             <div className="mt-4 flex gap-4">
                 <button 

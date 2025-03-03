@@ -9,6 +9,7 @@ form_routes = Blueprint('form', __name__)
 @login_required
 def create_form():
     data = request.get_json()
+    print("test")
     
     # Create the form and associate with the user
     form = Form(
@@ -45,20 +46,113 @@ def create_form():
 
     # Add service areas, EECBG activities, desired roles
     service_areas_data = data.get('service_areas', [])
-    for area in service_areas_data:
-        service_area = ServiceArea(form_id=form.id, **area)
-        db.session.add(service_area)
+    if service_areas_data and len(service_areas_data) > 0:
+        # Create a new ServiceArea object
+        service_area = ServiceArea(
+            form_id=form.id,
+            user_id=current_user.id
+        )
+        
+        # If service_areas is a list of strings, convert to lowercase and set the corresponding fields
+        if isinstance(service_areas_data[0], str):
+            for area in service_areas_data:
+                # Convert area name to lowercase to match model field names
+                area_key = area.lower().replace(' ', '_')
+                # Check if this field exists in the model
+                if hasattr(service_area, area_key):
+                    setattr(service_area, area_key, True)
+                else:
+                    print(f"Warning: ServiceArea has no attribute '{area_key}'")
+            
+            db.session.add(service_area)
+        else:
+            # Handle if it's already a list of dictionaries
+            for area_dict in service_areas_data:
+                area_obj = ServiceArea(
+                    form_id=form.id,
+                    user_id=current_user.id
+                )
+                # Set each field from the dictionary
+                for key, value in area_dict.items():
+                    if hasattr(area_obj, key):
+                        setattr(area_obj, key, value)
+                    else:
+                        print(f"Warning: ServiceArea has no attribute '{key}'")
+                
+                db.session.add(area_obj)
 
     eecbg_activities_data = data.get('eecbg_activities', [])
-    for activity in eecbg_activities_data:
-        eecbg_activity = EECBGActivity(form_id=form.id, **activity)
-        db.session.add(eecbg_activity)
+    if eecbg_activities_data and len(eecbg_activities_data) > 0:
+        # Create a new EECBGActivity object
+        eecbg_activity = EECBGActivity(
+            form_id=form.id,
+            user_id=current_user.id
+        )
+        
+        # If eecbg_activities is a list of strings, convert to lowercase and set the corresponding fields
+        if isinstance(eecbg_activities_data[0], str):
+            for activity in eecbg_activities_data:
+                # Convert activity name to lowercase and snake_case to match model field names
+                activity_key = activity.lower().replace(' ', '_').replace('(', '').replace(')', '')
+                # Check if this field exists in the model
+                if hasattr(eecbg_activity, activity_key):
+                    setattr(eecbg_activity, activity_key, True)
+                else:
+                    print(f"Warning: EECBGActivity has no attribute '{activity_key}'")
+            
+            db.session.add(eecbg_activity)
+        else:
+            # Handle if it's already a list of dictionaries
+            for activity_dict in eecbg_activities_data:
+                activity_obj = EECBGActivity(
+                    form_id=form.id,
+                    user_id=current_user.id
+                )
+                # Set each field from the dictionary
+                for key, value in activity_dict.items():
+                    if hasattr(activity_obj, key):
+                        setattr(activity_obj, key, value)
+                    else:
+                        print(f"Warning: EECBGActivity has no attribute '{key}'")
+                
+                db.session.add(activity_obj)
     
     desired_roles_data = data.get('desired_roles', [])
-    for role in desired_roles_data:
-        desired_role = DesiredRole(form_id=form.id, **role)
-        db.session.add(desired_role)
-    
+    if desired_roles_data and len(desired_roles_data) > 0:
+        # Create a new DesiredRole object
+        desired_role = DesiredRole(
+            form_id=form.id,
+            user_id=current_user.id
+        )
+        
+        # If desired_roles is a list of strings, convert to lowercase and set the corresponding fields
+        if isinstance(desired_roles_data[0], str):
+            for role in desired_roles_data:
+                # Convert role name to lowercase and snake_case to match model field names
+                role_key = role.lower().replace(' ', '_')
+                # Check if this field exists in the model
+                if hasattr(desired_role, role_key):
+                    setattr(desired_role, role_key, True)
+                else:
+                    print(f"Warning: DesiredRole has no attribute '{role_key}'")
+            
+            db.session.add(desired_role)
+        else:
+            # Handle if it's already a list of dictionaries
+            for role_dict in desired_roles_data:
+                role_obj = DesiredRole(
+                    form_id=form.id,
+                    user_id=current_user.id
+                )
+                # Set each field from the dictionary
+                for key, value in role_dict.items():
+                    if hasattr(role_obj, key):
+                        setattr(role_obj, key, value)
+                    else:
+                        print(f"Warning: DesiredRole has no attribute '{key}'")
+                
+                db.session.add(role_obj)
+
     db.session.commit()
 
     return jsonify(form.to_dict()), 201

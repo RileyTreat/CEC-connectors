@@ -1,8 +1,12 @@
+import { csrfFetch } from "./csrf";
 const SET_LOCATIONS = 'directory/setLocations';
 const SET_CONNECTORS = 'directory/setConnectors';
 const SET_CONNECTOR = 'directory/setConnector';
 const SET_EECBG_ACTIVITIES = 'directory/setEECBGActivities';
 const SET_USER_CONNECTOR = 'directory/setUserConnector';
+const CREATE_CONNECTOR = 'directory/createConnector';
+
+
 
 const setLocations = (locations) => ({
   type: SET_LOCATIONS,
@@ -28,6 +32,8 @@ const setConnector = (connector) => ({
     type: SET_USER_CONNECTOR,
     payload: connector,
   });
+
+
 
 export const fetchLocations = () => async (dispatch) => {
   const response = await fetch('/api/directory/locations');
@@ -85,8 +91,8 @@ export const fetchConnectorById = (id) => async (dispatch) => {
       // If the request was successful, dispatch the updated connector data to Redux
       if (response.ok) {
         const updatedConnector = await response.json();
-        dispatch(setConnector(updatedConnector));  // You already have the setConnector action defined
-        return updatedConnector;  // Return the updated connector if you need it for further use
+        dispatch(setConnector(updatedConnector));  
+        return updatedConnector;  
       } else {
         const errorData = await response.json();
         console.error('Error updating connector:', errorData);
@@ -96,13 +102,99 @@ export const fetchConnectorById = (id) => async (dispatch) => {
       console.error('Error:', error);
     }
   };
+
+  // Action to submit new form (Create Form)
+export const submitCecForm = (formData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch('/api/form', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      const submittedData = await response.json();
+      dispatch({
+        type: SUBMIT_CEC_FORM,
+        payload: submittedData,
+      });
+      return submittedData;  // Optional: Return the submitted data for further use
+    } else {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to submit form');
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+  }
+};
+
+// Action to update existing form
+// export const updateCecForm = (id, updatedData) => async (dispatch) => {
+//   try {
+//     const response = await fetch(`/api/form/${id}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(updatedData),
+//     });
+
+//     if (response.ok) {
+//       const updatedForm = await response.json();
+//       dispatch({
+//         type: UPDATE_CEC_FORM,
+//         payload: updatedForm,
+//       });
+//       return updatedForm;  // Optional: Return the updated form data
+//     } else {
+//       const errorData = await response.json();
+//       throw new Error(errorData.error || 'Failed to update form');
+//     }
+//   } catch (error) {
+//     console.error('Error updating form:', error);
+//   }
+// };
+  
+// Action to create a new connector (form)
+export const createConnector = (newData) => async (dispatch) => {
+  try {
+    const response = await csrfFetch('/api/form/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(newData),
+    });
+
+    if (response.ok) {
+      const createdConnector = await response.json();
+      dispatch({
+        type: CREATE_CONNECTOR,
+        payload: createdConnector,
+      });
+      return createdConnector;
+    } else {
+      const errorData = await response.json();
+      console.error('Error creating form:', errorData);
+      throw new Error(errorData.error || 'Failed to create form');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    throw error; // Re-throw the error so the component can catch it
+  }
+};
   
 
 const initialState = {
   locations: [],
   connectors: [],
   connector: null,
-  eecbgActivities: []
+  eecbgActivities: [],
+  userConnector: null,
+  createdConnector: null,
 };
 
 const directoryReducer = (state = initialState, action) => {
@@ -117,6 +209,10 @@ const directoryReducer = (state = initialState, action) => {
         return { ...state, eecbgActivities: action.payload };
     case SET_USER_CONNECTOR:
       return { ...state, userConnector: action.payload };
+    case SET_USER_CONNECTOR:
+        return { ...state, userConnector: action.payload };
+    case CREATE_CONNECTOR:
+        return { ...state, createdConnector: action.payload };
     default:
       return state;
   }

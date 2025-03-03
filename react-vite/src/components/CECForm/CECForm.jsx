@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import  { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { createConnector } from "../../redux/directory";
 
 function  CECForm() {
   const [formData, setFormData] = useState({
@@ -33,25 +36,101 @@ function  CECForm() {
     
   });
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const sessionUser = useSelector(state => state.session.user);
+  
+  // Redirect to login if not authenticated !!! ADDED BY CURSOR!!!! CAN DELETE IF NOT NEEDED
+  useEffect(() => {
+    if (!sessionUser) {
+      navigate('/login');
+    }
+  }, [sessionUser, navigate]);
+
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   if (type === "checkbox") {
+  //     setFormData({
+  //       ...formData,
+  //       [name]: checked ? [...formData[name], value] : formData[name].filter((v) => v !== value),
+  //     });
+  //   } else if (type === "radio") {
+  //     setFormData({ ...formData, [name]: value });
+  //   } else if (type === "file") {
+  //     setFormData({ ...formData, [name]: e.target.files });
+  //   } else {
+  //     setFormData({ ...formData, [name]: value });
+  //   }
+  // };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+  
     if (type === "checkbox") {
-      setFormData({
-        ...formData,
-        [name]: checked ? [...formData[name], value] : formData[name].filter((v) => v !== value),
-      });
-    } else if (type === "radio") {
-      setFormData({ ...formData, [name]: value });
-    } else if (type === "file") {
-      setFormData({ ...formData, [name]: e.target.files });
+      if (name === "service_areas") {
+        setFormData((prevFormData) => {
+          const newServiceAreas = checked
+            ? [...prevFormData.service_areas, value]  // Add value if checked
+            : prevFormData.service_areas.filter(area => area !== value);  // Remove value if unchecked
+  
+          return {
+            ...prevFormData,
+            service_areas: newServiceAreas,
+          };
+        });
+      } else if (name === "eecbg_activities") {
+        setFormData((prevFormData) => {
+          const newEECBGActivities = checked
+            ? [...prevFormData.eecbg_activities, value]  // Add value if checked
+            : prevFormData.eecbg_activities.filter(activity => activity !== value);  // Remove value if unchecked
+  
+          return {
+            ...prevFormData,
+            eecbg_activities: newEECBGActivities,
+          };
+        });
+      } else if (name === "desired_roles") {
+        setFormData((prevFormData) => {
+          const newDesiredRoles = checked
+            ? [...prevFormData.desired_roles, value]  // Add value if checked
+            : prevFormData.desired_roles.filter(role => role !== value);  // Remove value if unchecked
+  
+          return {
+            ...prevFormData,
+            desired_roles: newDesiredRoles,
+          };
+        });
+      } else if (name === "termsAndConditions_27") {
+        // Toggle the terms and conditions checkbox
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: checked,  // Set to true if checked, false if unchecked
+        }));
+      }
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
+  
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    //console.log(formData); // For testing purposes before submitting the form
+    
+    // Check if user is authenticated
+    if (!sessionUser) {
+      alert("You must be logged in to submit this form");
+      navigate('/login');
+      return;
+    }
+    
+    try {
+      const newConnector = await dispatch(createConnector(formData)); 
+      //console.log("New form created:", newConnector);
+     navigate(`/connector/${newConnector.id}`);
+    } catch (error) {
+      console.error("Error creating form:", error);
+    }
   };
 
   return (
@@ -173,7 +252,7 @@ function  CECForm() {
           <h2 className="text-xl font-semibold mb-4">B. Which areas do you serve? (Select ALL that apply) *</h2>
           <div className="grid grid-cols-2 gap-4">
             {[
-              "Global", "National", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "American Samoa", "Guam", "Northern Mariana Islands", "Puerto Rico", "U.S. Virgin Islands", "Federally Recognized Tribes", "Alaska Native Villages", "Energy Communities", "Disadvantaged Communities"
+              "global", "national", "alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware", "district of columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming", "American Samoa", "Guam", "Northern Mariana Islands", "Puerto Rico", "U.S. Virgin Islands", "Federally Recognized Tribes", "Alaska Native Villages", "Energy Communities", "Disadvantaged Communities"
             ].map((area) => (
               <label key={area} className="inline-flex items-center">
                 <input
@@ -230,7 +309,7 @@ function  CECForm() {
           <h2 className="text-xl font-semibold mb-4">D. Clean Energy and Economic Development</h2>
 
           <label className="block">
-          Please describe your organization’s experience in providing support for EECBG formula applicants throughout the application, award, or service phase. (Provide examples of successful applications, chosen categories and blueprints.) *
+          Please describe your organization's experience in providing support for EECBG formula applicants throughout the application, award, or service phase. (Provide examples of successful applications, chosen categories and blueprints.) *
             <textarea
               name="EECBGExperience_11"
               value={formData.EECBGExperience_11}
@@ -242,7 +321,7 @@ function  CECForm() {
           </label>
 
           <label className="block">
-          Please describe your organization’s experience in providing technical assistance to state and local government entities, especially related to clean energy and economic development. (Provide examples of successful initiatives, engagement strategies, or outcomes.) *
+          Please describe your organization's experience in providing technical assistance to state and local government entities, especially related to clean energy and economic development. (Provide examples of successful initiatives, engagement strategies, or outcomes.) *
             <textarea
               name="publicTaExperience_12"
               value={formData.publicTaExperience_12}
@@ -283,7 +362,7 @@ function  CECForm() {
           <h2 className="text-xl font-semibold mb-4">E. Engagement with Underserved Communities</h2>
 
           <label className="block">
-          Describe your organization’s past experience working with underserved communities, including disadvantaged, environmental justice, and energy communities, and Tribes, Alaska Native Villages, or territories. (Provide examples of the communities served and the outcomes of the work.) *
+          Describe your organization's past experience working with underserved communities, including disadvantaged, environmental justice, and energy communities, and Tribes, Alaska Native Villages, or territories. (Provide examples of the communities served and the outcomes of the work.) *
             <textarea
               name="underservedExperience_15"
               value={formData.underservedExperience_15}
@@ -312,7 +391,7 @@ function  CECForm() {
           <h2 className="text-xl font-semibold mb-4">F. Federal Grants and Collaboration</h2>
 
           <label className="block">
-          Please describe your organization’s experience with federal grant management processes, especially related to clean energy or economic development. (Provide examples of successfully managed projects or grants.) *
+          Please describe your organization's experience with federal grant management processes, especially related to clean energy or economic development. (Provide examples of successfully managed projects or grants.) *
             <textarea
               name="federalGrantExperience_17"
               value={formData.federalGrantExperience_17}
@@ -516,7 +595,10 @@ function  CECForm() {
         </section>
 
         {/* Submit */}
-        <button type="submit" className="w-full py-3 px-6 text-center bg-blue-500 text-white rounded-lg mt-6">
+        <button 
+          type="submit" 
+          disabled={!formData.termsAndConditions_27} 
+          className="w-full py-3 px-6 text-center bg-blue-500 text-white rounded-lg mt-6">
           Submit
         </button>
       </form>

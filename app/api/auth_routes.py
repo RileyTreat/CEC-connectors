@@ -1,8 +1,9 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from app.models import User, db
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from flask_wtf.csrf import generate_csrf
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -54,6 +55,7 @@ def sign_up():
         user = User(
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
+            email=form.data['email'],
             password=form.data['password']
         )
         db.session.add(user)
@@ -69,3 +71,11 @@ def unauthorized():
     Returns unauthorized JSON when flask-login authentication fails
     """
     return {'errors': {'message': 'Unauthorized'}}, 401
+
+
+@auth_routes.route('/csrf/restore')
+def restore_csrf():
+    """
+    Restores CSRF token
+    """
+    return {'csrf_token': generate_csrf()}, 200
